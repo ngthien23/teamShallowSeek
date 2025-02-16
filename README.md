@@ -8,9 +8,9 @@ Follow the steps below to set up and run the project.
 
 1. Download and install Ollama from https://ollama.com/.
 
-2. Pull Model with Ollama
+2. Pull Model with Ollama (to use another model: modify model name in chatbot.py)
 ```sh
-ollama pull model_name
+ollama pull deepseek-r1:1.5b
 ```
 
 3. Install Dependencies and Navigate to Project Directory
