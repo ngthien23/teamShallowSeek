@@ -8,8 +8,9 @@ Follow the steps below to set up and run the project.
 
 1. Download and install Ollama from https://ollama.com/.
 
-2. Pull Model with Ollama (to use another model: modify model name in chatbot.py)
+2. Pull Model with Ollama (to use another model, modify model name in chatbot.py)
 ```sh
+ollama pull nomic-embed-text
 ollama pull deepseek-r1:1.5b
 ```
 
