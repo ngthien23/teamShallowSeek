@@ -34,7 +34,7 @@ def initialize_session_state():
 # Chat interface section
 def chat_interface():
     st.title("Team ShallowSeek")
-    st.markdown("Climate Policies AI chatbot powered by Deepseek")
+    st.markdown("Climate Policies AI chatbot powered by DeepSeek-R1")
     
     # Display chat messages
     for message in st.session_state.messages:
