@@ -1,0 +1,9 @@
+python==3.10
+streamlit
+langchain
+langchain_ollama
+langchain_chroma
+umap
+pandas
+numpy
+scikit-learn

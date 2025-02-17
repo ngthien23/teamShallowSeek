@@ -18,7 +18,7 @@ ollama pull deepseek-r1:1.5b
 ```sh
 conda create -n chatbot python==3.10
 conda activate chatbot
-cd RAG-RAPTOR
+cd chatbot
 pip install -r requirements.txt
 ```
 
