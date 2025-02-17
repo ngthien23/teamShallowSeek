@@ -3,7 +3,7 @@ from langchain.chains import RetrievalQA
 from langchain_ollama import ChatOllama
 from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
-from utils import load_pretrained
+from train.utils import load_pretrained
 
 leaf_texts, results, model, embd, vector_store = load_pretrained()
 

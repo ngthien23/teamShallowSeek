@@ -1,7 +1,7 @@
 import streamlit as st
 from langchain.chains import RetrievalQA
 from langchain_ollama import ChatOllama
-from utils import process_documents, get_retriever
+from train.utils import process_documents, get_retriever
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 
 # Custom prompt template
