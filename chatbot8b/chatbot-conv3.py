@@ -96,10 +96,25 @@ conversational_rag_chain = RunnableWithMessageHistory(
 
 # Chat interface
 def chat_interface():
-    st.image("logo.svg",width=100)
+    st.set_page_config(page_title="Shallowseek", page_icon="logo.svg", layout="centered", initial_sidebar_state="auto", menu_items=None)
+    
+    st.image("logo.svg",width=120)
     st.title("Team ShallowSeek")
     st.markdown("Climate Policies AI chatbot powered by DeepSeek-R1")
+    st.markdown(
+    """
+    <style>
+        .stChatMessageAvatar img {
+            width: 40px !important;  /* Adjust width */
+            height: 40px !important; /* Adjust height */
+            border-radius: 50%;  /* Make it circular */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     
+
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
@@ -110,7 +125,7 @@ def chat_interface():
         with st.chat_message("user"):
             st.markdown(prompt)
         
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant",avatar="logo.svg"):
             message_placeholder = st.empty()
             with st.spinner("Fetching information..."):
                 try:
