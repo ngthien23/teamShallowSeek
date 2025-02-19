@@ -96,6 +96,7 @@ conversational_rag_chain = RunnableWithMessageHistory(
 
 # Chat interface
 def chat_interface():
+    st.image("logo.svg",width=100)
     st.title("Team ShallowSeek")
     st.markdown("Climate Policies AI chatbot powered by DeepSeek-R1")
     
