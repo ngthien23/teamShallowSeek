@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 Ensure Ollama is running, then start the Streamlit application:
 ```sh
-streamlit run chatbot.py
+streamlit run chatbot-conv3.py
 ```
 License
 
