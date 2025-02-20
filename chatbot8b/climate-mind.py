@@ -292,6 +292,9 @@ def chat_interface():
 
             message_placeholder.markdown(final_answer.strip())
             st.session_state.messages.append({"role": "assistant", "content": final_answer.strip()})
+
+        if thinking_process.strip():
+            st.session_state.thinking_process = thinking_process.strip()
 #######################web design end#####################################
 # Main function
 def main():
@@ -300,6 +303,9 @@ def main():
         show_intro()
     else:
         chat_interface()
+    if "thinking_process" in st.session_state:
+        with st.expander("Reasoning Process"):
+            st.text(st.session_state.thinking_process)
 
 if __name__ == "__main__":
     main()
