@@ -1,4 +1,6 @@
 data/
+chroma_db/
+*.pkl
 *.zip
 
 # Prerequisites

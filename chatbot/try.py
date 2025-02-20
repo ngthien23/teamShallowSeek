@@ -94,6 +94,10 @@ def show_intro():
     st.set_page_config(page_title="Shallowseek", page_icon="logo.svg", layout="centered")
     st.image("logo.svg", width=100)
     st.markdown("### Climate-Mind: Your Climate Consultant")
+
+    if st.button("Start now"):
+        st.session_state.show_intro = False
+        st.rerun()
     
     st.markdown("#### Let's explore together:")
     questions = [
@@ -114,9 +118,6 @@ def show_intro():
             st.session_state.show_intro = False
             st.rerun()
     
-    if st.button("Start Now"):
-        st.session_state.show_intro = False
-        st.rerun()
 
 def chat_interface():
     if st.session_state.show_intro:
@@ -131,7 +132,7 @@ def chat_interface():
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
     
-    prompt = st.session_state.selected_question or st.chat_input("Ask about your documents")
+    prompt = st.session_state.selected_question or st.chat_input("Ask about climate policies")
     
     if prompt:
         st.session_state.messages.append({"role": "user", "content": prompt})
@@ -139,7 +140,7 @@ def chat_interface():
             st.markdown(prompt)
         with st.chat_message("assistant", avatar="logo.svg"):
             message_placeholder = st.empty()
-            with st.spinner("Fetching information..."):
+            with st.spinner("Thinking information..."):
                 try:
                     response = conversational_rag_chain.invoke(
                         {"input": prompt},
