@@ -8,7 +8,7 @@ Follow the steps below to set up and run the project.
 
 1. Download and install Ollama from https://ollama.com/.
 
-2. Pull Model with Ollama (to use another model, modify model name in chatbot.py)
+2. Pull Model with Ollama (to use another model, modify model name in climate-mind.py)
 ```sh
 ollama pull nomic-embed-text
 ollama pull deepseek-r1:1.5b
@@ -23,8 +23,14 @@ pip install -r requirements.txt
 ```
 
 4. Run the Chatbot
+To use our vector embeddings, extract chromadb.rar in folder chatbot.
 
-Ensure Ollama is running, then start the Streamlit application:
+Ensure Ollama is running in another terminal:
+```sh
+ollama serve
+```
+
+Start the Streamlit application:
 ```sh
 streamlit run climate-mind.py
 ```
