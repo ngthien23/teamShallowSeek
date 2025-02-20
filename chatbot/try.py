@@ -140,7 +140,7 @@ def chat_interface():
             st.markdown(prompt)
         with st.chat_message("assistant", avatar="logo.svg"):
             message_placeholder = st.empty()
-            with st.spinner("Thinking information..."):
+            with st.spinner("Thinking..."):
                 try:
                     response = conversational_rag_chain.invoke(
                         {"input": prompt},
