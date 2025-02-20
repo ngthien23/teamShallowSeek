@@ -1,7 +1,8 @@
 data/
-chroma_db/
+chatbot/chroma_db/
 *.pkl
 *.zip
+*.rar
 
 # Prerequisites
 *.d
