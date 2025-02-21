@@ -104,16 +104,14 @@ conversational_rag_chain = RunnableWithMessageHistory(
 
 ##########web design start############################
 # Chat interface
+
 def show_intro():
     # Update global styles
-    st.set_page_config(page_title="Shallowseek", page_icon="logo.svg", layout="centered", initial_sidebar_state="auto", menu_items=None)
-    st.image("logo.svg",width=100)
+    st.set_page_config(page_title="Shallowseek", page_icon="logo.svg", layout="centered", initial_sidebar_state="auto")
+    st.image("logo.svg", width=100)
     st.markdown("""
         <style>
             .stApp {
-                background-color: #E3F2FD !important;  /* Lighter blue background */
-            }
-            .css-1d391kg {
                 background-color: #E3F2FD !important;
             }
             .stButton>button {
@@ -145,20 +143,15 @@ def show_intro():
                 background-color: #E3F2FD;
             }
             .question-container {
-                width: 100vw;
-                margin-left: -50vw;
-                left: 50%;
-                position: relative;
+                width: 100%;
                 overflow: hidden;
                 margin-top: 10px;
                 margin-bottom: 10px;
             }
             .scrolling-questions {
-                display: inline-flex;
-                flex-wrap: nowrap;
-                animation: scroll 20s linear infinite;  /* Set scroll speed */
-                animation-fill-mode: none;
+                display: flex;
                 white-space: nowrap;
+                animation: scroll 20s linear infinite;
             }
             .question-box {
                 background-color: #f5f5f5;
@@ -171,20 +164,14 @@ def show_intro():
                 color: #333;
                 cursor: pointer;
                 margin-bottom: 10px;
+                text-align: center;
+            }
+            .question-box:hover {
+                background-color: #e0e0e0;
             }
             @keyframes scroll {
-                0% {
-                    transform: translateX(0); /* Start from the left side */
-                }
-                50% {
-                    transform: translateX(-50vw); /* Scroll halfway through */
-                }
-                100% {
-                    transform: translateX(-100vw); /* End at the far left */
-                }
-            }
-            .scrolling-questions:hover {
-                animation-play-state: paused; /* Pause the scrolling when hovered */
+                0% { transform: translateX(100%); }
+                100% { transform: translateX(-100%); }
             }
             h1, h3 {
                 color: #1976D2 !important;
@@ -192,17 +179,14 @@ def show_intro():
             p {
                 color: #333 !important;
             }
-            .stMarkdown {
-                color: #333;
-            }
         </style>
     """, unsafe_allow_html=True)
 
-    # Add "Team" text to the top left corner
     st.markdown('<div class="team-text">Team</div>', unsafe_allow_html=True)
 
-    # Display title with no line breaks
-    st.markdown("<h1 style='text-align: center; white-space: nowrap;'>Climate-Mind: Your Climate Consultant</h1>", unsafe_allow_html=True)
+    st.markdown("""
+        <h1 style='text-align: center; white-space: nowrap;'>Climate-Mind: Your Climate Consultant</h1>
+    """, unsafe_allow_html=True)
 
     st.markdown("""Your AI-powered climate policy assistant! 🌍⚡
 
@@ -211,12 +195,11 @@ Built on DeepSeek R1 and backed by an extensive database of climate policy docum
 Stay informed. Make an impact. Power up your Climate Mind! 🚀♻️
     """)
 
-    # Center the "Start Now" button
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         if st.button("Start Now", use_container_width=True):
-            st.session_state.show_intro = False  # End the introduction and go to the chat interface
-            st.rerun()  # Refresh the page to show the chat interface
+            st.session_state.show_intro = False
+            st.rerun()
 
     st.markdown("### Let's explore together:")
 
@@ -232,14 +215,39 @@ Stay informed. Make an impact. Power up your Climate Mind! 🚀♻️
         "What is the relationship between climate policy and economic development?"
     ]
 
-    # Create scrolling questions in one continuous loop
-    st.markdown(f"""
+    # Displaying static clickable questions
+    for q in questions:
+        if st.button(q):
+            st.session_state.selected_question = q
+            st.session_state.show_intro = False
+            st.rerun()
+
+    # Display scrolling questions using HTML with click events
+    question_html = """
+        <script>
+        function selectQuestion(question) {
+            fetch('/_stcore/handle_message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ "question": question })
+            }).then(() => window.location.reload());
+        }
+        </script>
         <div class="question-container">
             <div class="scrolling-questions">
-                {"".join([f'<div class="question-box">{q}</div>' for q in questions * 3])}
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+    """
+    
+    for q in questions:
+        question_html += f'<div class="question-box" onclick="selectQuestion(\"{q}\")">{q}</div>'
+    
+    question_html += "</div></div>"
+    
+    st.markdown(question_html, unsafe_allow_html=True)
+
+    if "question" in st.session_state:
+        st.session_state.selected_question = st.session_state.question
+        st.session_state.show_intro = False
+        st.rerun()
 
 
 
@@ -268,9 +276,9 @@ def chat_interface():
             }
         </style>
     """, unsafe_allow_html=True)
-    st.image("logo.svg",width=120) 
-
-    st.markdown("<h1 style='text-align: center; white-space: nowrap;'>What's on your mind?🤓</h1>", unsafe_allow_html=True)
+    st.image("logo.svg",width=120)
+    
+    st.markdown("<h1 style='text-align: center; white-space: nowrap;'>Climate-Mind: Your Climate Consultant</h1>", unsafe_allow_html=True)
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
